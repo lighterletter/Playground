@@ -1,4 +1,4 @@
-package john.lighterletter.com.galileo;
+package john.lighterletter.com.galileo.litho;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.LithoView;
-import com.facebook.litho.widget.Text;
+
+import john.lighterletter.com.galileo.litho.components.ListItem;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -16,11 +17,7 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ComponentContext context = new ComponentContext(this);
-        final Component component = Text.create(context)
-                .text("Test Activity")
-                .textSizeDip(50)
-                .build();
-
+        final Component component = ListItem.create(context).build();
         setContentView(LithoView.create(context, component));
     }
 
