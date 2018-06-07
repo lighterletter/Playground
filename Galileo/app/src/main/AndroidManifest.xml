@@ -19,7 +19,10 @@
         </activity>
 
 
-        <activity android:name=".litho.TestActivity"/>
+        <activity android:name=".litho.TestActivity" />
+
+
+        <activity android:name=".opengl.OpenGLActivity" />
     </application>
 
 </manifest>

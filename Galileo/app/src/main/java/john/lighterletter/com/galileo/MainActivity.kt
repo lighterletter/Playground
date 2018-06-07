@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import john.lighterletter.com.galileo.litho.TestActivity
+import john.lighterletter.com.galileo.opengl.OpenGLActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById<Button>(R.id.button) as Button
         button.setOnClickListener { view ->
             startActivity(Intent(this, TestActivity::class.java))
+        }
+
+        val opengl: Button = findViewById<Button>(R.id.main_opengl_button) as Button
+        opengl.setOnClickListener {
+            startActivity(Intent(this, OpenGLActivity::class.java))
         }
     }
 }
