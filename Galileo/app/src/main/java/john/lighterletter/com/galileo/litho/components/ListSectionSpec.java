@@ -1,5 +1,6 @@
 package john.lighterletter.com.galileo.litho.components;
 
+import android.app.LauncherActivity;
 import android.graphics.Color;
 
 import com.facebook.litho.annotations.Prop;
