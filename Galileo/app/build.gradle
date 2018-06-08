@@ -52,4 +52,7 @@ dependencies {
     compileOnly 'com.facebook.litho:litho-sections-annotations:0.15.0'
 
     annotationProcessor 'com.facebook.litho:litho-sections-processor:0.15.0'
+
+    implementation "android.arch.persistence.room:runtime:1.1.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
 }

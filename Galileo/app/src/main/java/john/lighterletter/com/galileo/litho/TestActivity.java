@@ -1,5 +1,6 @@
 package john.lighterletter.com.galileo.litho;
 
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +14,14 @@ import com.facebook.litho.sections.widget.RecyclerCollectionComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import john.lighterletter.com.galileo.db.PeopleDataBase;
 import john.lighterletter.com.galileo.litho.components.ListSection;
 
 public class TestActivity extends AppCompatActivity {
+
+
+    private static final String DATABASE_NAME = "people_db";
+    private PeopleDataBase movieDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +34,18 @@ public class TestActivity extends AppCompatActivity {
                         .names(getNames()).build())
                 .build();
         setContentView(LithoView.create(context, component));
+
+
+        movieDatabase = Room.databaseBuilder(getApplicationContext(),
+                PeopleDataBase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        if (movieDatabase.daoAccess().getAll().isEmpty()){
+
+        }
     }
+    
 
     List<String> getNames() {
         List<String> names = new ArrayList<>();
