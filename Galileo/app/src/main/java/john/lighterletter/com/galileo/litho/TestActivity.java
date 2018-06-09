@@ -16,6 +16,7 @@ import java.util.List;
 
 import john.lighterletter.com.galileo.db.PeopleDataBase;
 import john.lighterletter.com.galileo.litho.components.ListSection;
+import john.lighterletter.com.galileo.model.Person;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -26,39 +27,57 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ComponentContext context = new ComponentContext(this);
-        Component component = RecyclerCollectionComponent.create(context)
-                .disablePTR(true) //disables pull to refresh since we're not fetching data
-                .section(ListSection.create(
-                        new SectionContext(context))
-                        .names(getNames()).build())
-                .build();
-        setContentView(LithoView.create(context, component));
-
 
         movieDatabase = Room.databaseBuilder(getApplicationContext(),
                 PeopleDataBase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build();
 
-        if (movieDatabase.daoAccess().getAll().isEmpty()){
+        final List<Person> people = new ArrayList<>();
 
-        }
+
+        final ComponentContext context = new ComponentContext(this);
+        Component component = RecyclerCollectionComponent.create(context)
+                .disablePTR(true) //disables pull to refresh since we're not fetching data
+                .section(ListSection.create(
+                        new SectionContext(context))
+                        .people(people).build())
+                .build();
+        setContentView(LithoView.create(context, component));
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                people.addAll(movieDatabase.daoAccess().getAll());
+                if (people.isEmpty()) {
+                    //Todo: Create list objects and save them to the database, otherwise get all objects and pass to component
+                    people.addAll(getPeople());
+                    movieDatabase.daoAccess().insertMultiplePeople(people);
+                } else {
+
+                }
+            }
+        }).start();
+
+
+
     }
-    
 
-    List<String> getNames() {
-        List<String> names = new ArrayList<>();
+    List<Person> getPeople() {
 
-        names.add("John");
-        names.add("Clementine");
-        names.add("Steve");
-        names.add("Kate");
-        names.add("Ruben");
-        names.add("Chelsea");
-        names.add("Matt");
-        names.add("Martha");
-        names.add("Luis");
+
+        List<Person> names = new ArrayList<>();
+        names.add(new Person("John", "Smith"));
+        names.add(new Person("Clementine", "Berry"));
+        names.add(new Person("Steve", "Brule"));
+        names.add(new Person("Kate", "Stevenson"));
+        names.add(new Person("Ruben", "Guy"));
+        names.add(new Person("Chelsea", "Peterson"));
+        names.add(new Person("Matt", "Brosnan"));
+        names.add(new Person("Martha", "Vineyard"));
+        names.add(new Person("Luis", "Bernan"));
 
         return names;
     }

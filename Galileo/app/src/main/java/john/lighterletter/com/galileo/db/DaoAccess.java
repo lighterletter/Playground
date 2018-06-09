@@ -20,7 +20,7 @@ public interface DaoAccess {
     void insertMultiplePeople(List<Person> moviesList);
 
     @Query("SELECT * FROM Person WHERE firstName = :firstName")
-    Person fetchOneMoviesbyMovieId(int firstName);
+    Person fetchPersonbyFirstName(int firstName);
 
     @Query("SELECT * FROM person")
     List<Person> getAll();
