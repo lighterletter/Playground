@@ -3,6 +3,8 @@ package john.lighterletter.com.galileo.litho;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -13,6 +15,7 @@ import com.facebook.litho.sections.widget.RecyclerCollectionComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import john.lighterletter.com.galileo.R;
 import john.lighterletter.com.galileo.litho.components.ListSection;
 
 public class TestActivity extends AppCompatActivity {
@@ -27,7 +30,13 @@ public class TestActivity extends AppCompatActivity {
                         new SectionContext(context))
                         .names(getNames()).build())
                 .build();
-        setContentView(LithoView.create(context, component));
+        setContentView(R.layout.activity_test);
+
+        RelativeLayout root = findViewById(R.id.test_root);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        root.addView(LithoView.create(context, component), 0 , params);
+
     }
 
     List<String> getNames() {
